@@ -128,20 +128,20 @@ The system follows a **client-server architecture** with two parallel methodolog
 - **OOADM (Object-Oriented Analysis & Design Methodology)** — for the web application
 - **CRISP-DM** — for the machine learning pipeline
 
-- Client (Browser)
-- │ HTTP Request
-- ▼
-- Flask Application (app.py)
-- │
-- ├── Authentication Module
-- ├── Prediction Module ──── StandardScaler ──── Logistic Regression Model
-- ├── History Module
-- ├── Dashboard Module
-- └── Admin Modules (Users, Predictions, Performance, Dataset)
-- │
-- ▼
-- SQLite Database
-- (users + predictions tables)
+> Client (Browser)
+> │ HTTP Request
+> ▼
+> Flask Application (app.py)
+> │
+> ├── Authentication Module
+> ├── Prediction Module ──── StandardScaler ──── Logistic Regression Model
+> ├── History Module
+> ├── Dashboard Module
+> └── Admin Modules (Users, Predictions, Performance, Dataset)
+> │
+> ▼
+> SQLite Database
+> (users + predictions tables)
 
 ---
 
@@ -218,34 +218,75 @@ Open your browser at: **http://127.0.0.1:5000**
 
 ## 📁Project Structure
 
-heart-disease-prediction-system/
-│
-├── app.py # Main Flask application
-├── train_models.py # ML training and evaluation script
-├── create_admin.py # Admin account creation utility
-├── requirements.txt # Python dependencies
-│
-├── static/
-│ ├── css/style.css # Custom stylesheet
-│ └── img/ # Generated charts (after training)
-│
-├── templates/
-│ ├── base.html # Master template with role-aware navbar
-│ ├── home.html # Landing page
-│ ├── login.html # User login
-│ ├── register.html # User registration
-│ ├── dashboard.html # User dashboard
-│ ├── predict.html # Prediction form
-│ ├── result.html # Prediction result
-│ ├── history.html # Prediction history
-│ └── admin/
-│ ├── dashboard.html # Admin dashboard
-│ ├── users.html # User management
-│ ├── predictions.html # All predictions view
-│ ├── performance.html # Model performance
-│ └── dataset.html # Dataset management
-│
-├── data/ # Place heart.csv here (not committed)
-├── models/ # Saved models (generated after training)
-├── instance/ # SQLite database (generated at runtime)
-└── screenshots/ # System screenshots for README
+> heart-disease-prediction-system/
+> │
+> ├── app.py # Main Flask application
+> ├── train_models.py # ML training and evaluation script
+> ├── create_admin.py # Admin account creation utility
+> ├── requirements.txt # Python dependencies
+> │
+> ├── static/
+> │ ├── css/style.css # Custom stylesheet
+> │ └── img/ # Generated charts (after training)
+> │
+> ├── templates/
+> │ ├── base.html # Master template with role-aware navbar
+> │ ├── home.html # Landing page
+> │ ├── login.html # User login
+> │ ├── register.html # User registration
+> │ ├── dashboard.html # User dashboard
+> │ ├── predict.html # Prediction form
+> │ ├── result.html # Prediction result
+> │ ├── history.html # Prediction history
+> │ └── admin/
+> │ ├── dashboard.html # Admin dashboard
+> │ ├── users.html # User management
+> │ ├── predictions.html # All predictions view
+> │ ├── performance.html # Model performance
+> │ └── dataset.html # Dataset management
+> │
+> ├── data/ # Place heart.csv here (committed)
+> ├── models/ # Saved models (generated after training)
+> ├── instance/ # SQLite database (generated at runtime)
+> └── screenshots/ # System screenshots for README
+
+---
+
+## 📊 Dataset
+
+**UCI Cleveland Heart Disease Dataset**
+- **Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/45/heart+disease)
+- **Kaggle mirror:** [Heart Disease UCI](https://www.kaggle.com/datasets/ronitf/heart-disease-uci)
+- **Records:** 297 (after removing missing values)
+- **Features:** 13 clinical predictor variables
+- **Target:** Binary (0 = No Disease, 1 = Disease Present)
+- **Class distribution:** No Disease: 160 (53.9%) | Disease: 137 (46.1%)
+- **Split:** 70% training (207 records) / 30% test (90 records)
+
+---
+
+## 🎓 Academic Context
+
+This project was developed as a **Computer Science Final Year Project** at
+Nnamdi Azikiwe University, Awka, Anambra State, Nigeria.
+The research involved a systematic comparison of six 
+machine learning algorithms for heart disease prediction, and the deployment 
+of the best-performing model into a fully functional web-based clinical 
+decision support system.
+
+**Methodologies used:**
+- OOADM (Object-Oriented Analysis and Design Methodology)
+- CRISP-DM (Cross-Industry Standard Process for Data Mining)
+
+---
+
+## ⚠️ Disclaimer
+
+This system is developed **strictly for academic research purposes only**. 
+It is not a medical device and must not be used as a substitute for 
+professional medical diagnosis. Always consult a qualified healthcare 
+practitioner for medical advice.
+
+---
+
+*Developed by Dandy — Computer Science Graduate*
