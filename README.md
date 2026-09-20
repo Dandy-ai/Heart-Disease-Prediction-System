@@ -145,7 +145,7 @@ The system follows a **client-server architecture** with two parallel methodolog
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️Installation & Setup
 
 ### Prerequisites
 - Python 3.10 or higher
