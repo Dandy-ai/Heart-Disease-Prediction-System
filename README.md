@@ -11,7 +11,7 @@
 
 ---
 
-## 📋Table of Contents
+## 📋 Table of Contents
 
 - [Project Overview](#-project-overview)
 - [Screenshots](#-screenshots)
@@ -28,7 +28,7 @@
 
 ---
 
-## 📌Project Overview
+## 📌 Project Overview
 
 The **Heart Disease Web-based Prediction System** is a full-stack web application 
 developed as part of my Computer Science Final Year Project. It uses supervised 
@@ -47,7 +47,7 @@ The system supports two user roles:
 
 ---
 
-## 📸Screenshots
+## 📸 Screenshots
 
 | Home Page | Prediction Form |
 |-----------|----------------|
@@ -67,7 +67,7 @@ The system supports two user roles:
 
 ---
 
-## ✨Features
+## ✨ Features
 
 ### User / Patient Side
 - 🔐 Secure registration and login with password hashing
@@ -86,7 +86,7 @@ The system supports two user roles:
 
 ---
 
-## 🤖Machine Learning Results
+## 🤖 Machine Learning Results
 
 Six supervised learning algorithms were trained on the UCI Cleveland 
 Heart Disease Dataset (297 records, 70/30 train-test split):
@@ -128,21 +128,20 @@ The system follows a **client-server architecture** with two parallel methodolog
 - **OOADM (Object-Oriented Analysis & Design Methodology)** — for the web application
 - **CRISP-DM** — for the machine learning pipeline
 
-Client (Browser)
-│ HTTP Request
-▼
-Flask Application (app.py)
-│
-├── Authentication Module
-├── Prediction Module ──── StandardScaler ──── Logistic Regression Model
-├── History Module
-├── Dashboard Module
-└── Admin Modules (Users, Predictions, Performance, Dataset)
-│
-▼
-SQLite Database
-(users + predictions tables)
-
+- Client (Browser)
+- │ HTTP Request
+- ▼
+- Flask Application (app.py)
+- │
+- ├── Authentication Module
+- ├── Prediction Module ──── StandardScaler ──── Logistic Regression Model
+- ├── History Module
+- ├── Dashboard Module
+- └── Admin Modules (Users, Predictions, Performance, Dataset)
+- │
+- ▼
+- SQLite Database
+- (users + predictions tables)
 
 ---
 
@@ -154,7 +153,7 @@ SQLite Database
 
 ### Step 1 — Clone the repository
 ```bash
-git clone https://github.com/YOUR-USERNAME/heart-disease-prediction-system.git
+git clone https://github.com/Dandy-ai/heart-disease-prediction-system.git
 cd heart-disease-prediction-system
 ```
 
@@ -198,7 +197,7 @@ Open your browser at: **http://127.0.0.1:5000**
 
 ---
 
-## 🚀Usage
+## 🚀 Usage
 
 ### As a Regular User
 1. Click **Register** to create an account
@@ -218,3 +217,35 @@ Open your browser at: **http://127.0.0.1:5000**
 ---
 
 ## 📁Project Structure
+
+heart-disease-prediction-system/
+│
+├── app.py # Main Flask application
+├── train_models.py # ML training and evaluation script
+├── create_admin.py # Admin account creation utility
+├── requirements.txt # Python dependencies
+│
+├── static/
+│ ├── css/style.css # Custom stylesheet
+│ └── img/ # Generated charts (after training)
+│
+├── templates/
+│ ├── base.html # Master template with role-aware navbar
+│ ├── home.html # Landing page
+│ ├── login.html # User login
+│ ├── register.html # User registration
+│ ├── dashboard.html # User dashboard
+│ ├── predict.html # Prediction form
+│ ├── result.html # Prediction result
+│ ├── history.html # Prediction history
+│ └── admin/
+│ ├── dashboard.html # Admin dashboard
+│ ├── users.html # User management
+│ ├── predictions.html # All predictions view
+│ ├── performance.html # Model performance
+│ └── dataset.html # Dataset management
+│
+├── data/ # Place heart.csv here (not committed)
+├── models/ # Saved models (generated after training)
+├── instance/ # SQLite database (generated at runtime)
+└── screenshots/ # System screenshots for README
