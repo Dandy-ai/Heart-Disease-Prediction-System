@@ -127,3 +127,94 @@ overall accuracy, precision, F1-score, and lowest false negative count.
 The system follows a **client-server architecture** with two parallel methodologies:
 - **OOADM (Object-Oriented Analysis & Design Methodology)** — for the web application
 - **CRISP-DM** — for the machine learning pipeline
+
+Client (Browser)
+│ HTTP Request
+▼
+Flask Application (app.py)
+│
+├── Authentication Module
+├── Prediction Module ──── StandardScaler ──── Logistic Regression Model
+├── History Module
+├── Dashboard Module
+└── Admin Modules (Users, Predictions, Performance, Dataset)
+│
+▼
+SQLite Database
+(users + predictions tables)
+
+
+---
+
+## ⚙️Installation & Setup
+
+### Prerequisites
+- Python 3.10 or higher
+- pip
+
+### Step 1 — Clone the repository
+```bash
+git clone https://github.com/YOUR-USERNAME/heart-disease-prediction-system.git
+cd heart-disease-prediction-system
+```
+
+### Step 2 — Create and activate a virtual environment
+```bash
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# macOS/Linux
+source venv/bin/activate
+```
+
+### Step 3 — Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Step 4 — Download the dataset
+Download `heart.csv` from [Kaggle — Heart Disease UCI](https://www.kaggle.com/datasets/ronitf/heart-disease-uci) 
+and place it in the `data/` folder.
+
+### Step 5 — Train the models
+```bash
+python train_models.py
+```
+This trains all 6 algorithms, saves the best model, and generates performance charts.
+
+### Step 6 — Create the admin account
+```bash
+python create_admin.py
+```
+Default credentials: `admin` / `Admin@1234`
+
+### Step 7 — Run the application
+```bash
+python app.py
+```
+Open your browser at: **http://127.0.0.1:5000**
+
+---
+
+## 🚀Usage
+
+### As a Regular User
+1. Click **Register** to create an account
+2. Log in with your credentials
+3. Click **New Prediction** and enter the patient's 13 clinical values
+4. The system uses Logistic Regression to generate an instant result
+5. View the confidence score, clinical recommendation, and patient data summary
+6. Access your full prediction history from the **History** page
+
+### As Administrator
+1. Log in with `admin` / `Admin@1234`
+2. Access **Manage Users** to view and manage all accounts
+3. Access **All Predictions** to monitor system-wide activity
+4. Access **Performance** to view model accuracy metrics and charts
+5. Access **Dataset** to check dataset status and information
+
+---
+
+## 📁Project Structure
