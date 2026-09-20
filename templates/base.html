@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}HeartPredict{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
+  {% block head %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url_for('home') }}">
+      <i class="fa-solid fa-heart-pulse"></i> HeartPredict
+      {% if current_user.is_authenticated and current_user.is_admin %}
+      <span class="badge bg-warning text-dark ms-1" style="font-size:0.65rem">ADMIN</span>
+      {% endif %}
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        {% if current_user.is_authenticated and current_user.is_admin %}
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='admin_dashboard' %}active{% endif %}" href="{{ url_for('admin_dashboard') }}"><i class="fa-solid fa-gauge me-1"></i>Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='admin_users' %}active{% endif %}" href="{{ url_for('admin_users') }}"><i class="fa-solid fa-users me-1"></i>Manage Users</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='admin_all_predictions' %}active{% endif %}" href="{{ url_for('admin_all_predictions') }}"><i class="fa-solid fa-list me-1"></i>All Predictions</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='admin_performance' %}active{% endif %}" href="{{ url_for('admin_performance') }}"><i class="fa-solid fa-chart-bar me-1"></i>Performance</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='admin_dataset' %}active{% endif %}" href="{{ url_for('admin_dataset') }}"><i class="fa-solid fa-database me-1"></i>Dataset</a></li>
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</a></li>
+        {% elif current_user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='home' %}active{% endif %}" href="{{ url_for('home') }}"><i class="fa-solid fa-house me-1"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}"><i class="fa-solid fa-gauge me-1"></i>Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='predict' %}active{% endif %}" href="{{ url_for('predict') }}"><i class="fa-solid fa-stethoscope me-1"></i>New Prediction</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.endpoint=='history' %}active{% endif %}" href="{{ url_for('history') }}"><i class="fa-solid fa-clock-rotate-left me-1"></i>History</a></li>
+          <li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}"><i class="fa-solid fa-house me-1"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}"><i class="fa-solid fa-right-to-bracket me-1"></i>Login</a></li>
+          <li class="nav-item ms-lg-2"><a class="btn btn-accent btn-sm px-3" href="{{ url_for('register') }}"><i class="fa-solid fa-user-plus me-1"></i>Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}<div class="container mt-3">{% for cat,msg in messages %}
+  <div class="alert alert-{{ cat }} alert-dismissible fade show shadow-sm" role="alert">
+    <i class="fa-solid {% if cat=='success' %}fa-circle-check{% elif cat=='danger' %}fa-circle-xmark{% elif cat=='warning' %}fa-triangle-exclamation{% else %}fa-circle-info{% endif %} me-2"></i>{{ msg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>{% endfor %}</div>{% endif %}
+{% endwith %}
+<main class="py-4">{% block content %}{% endblock %}</main>
+<footer class="footer-custom mt-auto py-4">
+  <div class="container text-center">
+    <p class="mb-1 fw-semibold"><i class="fa-solid fa-heart-pulse me-1 text-danger"></i> Heart Disease Web-based Prediction System</p>
+    <p class="small text-muted mb-0">Powered by Machine Learning &bull; For Academic Research Purposes Only</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

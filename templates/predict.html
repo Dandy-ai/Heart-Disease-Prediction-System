@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}New Prediction – HeartPredict{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <div class="d-flex align-items-center mb-3">
+        <div>
+          <h3 class="fw-bold mb-1"><i class="fa-solid fa-stethoscope me-2 text-primary"></i>New Prediction</h3>
+          <p class="text-muted mb-0">Enter patient clinical data to generate a heart disease risk prediction.</p>
+        </div>
+      </div>
+      <div class="alert alert-info border-0 shadow-sm mb-4">
+        <i class="fa-solid fa-robot me-2"></i>
+        <strong>Model in use:</strong> {{ best_model }}
+        — best-performing algorithm (87.78% accuracy) selected from six trained models.
+      </div>
+      <form method="POST" action="{{ url_for('predict') }}" novalidate>
+        <!-- Patient -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header section-header"><i class="fa-solid fa-user-injured me-2"></i>Patient Information</div>
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label class="form-label fw-semibold" for="patient_name">Patient Name (Optional)</label>
+                <input type="text" class="form-control" id="patient_name" name="patient_name" placeholder="e.g. John Doe"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Demographics -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header section-header"><i class="fa-solid fa-person me-2"></i>Demographic Information</div>
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="age">Age (years)</label>
+                <input type="number" class="form-control" id="age" name="age" min="20" max="100" placeholder="e.g. 55" required/>
+                <div class="form-text">Range: 20 – 100</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="sex">Sex</label>
+                <select class="form-select" id="sex" name="sex" required>
+                  <option value="" disabled selected>Select sex</option>
+                  <option value="1">Male</option><option value="0">Female</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="cp">Chest Pain Type <i class="fa-solid fa-circle-info text-muted ms-1" data-bs-toggle="tooltip" title="0=Typical Angina, 1=Atypical Angina, 2=Non-anginal Pain, 3=Asymptomatic"></i></label>
+                <select class="form-select" id="cp" name="cp" required>
+                  <option value="" disabled selected>Select type</option>
+                  <option value="0">0 – Typical Angina</option><option value="1">1 – Atypical Angina</option>
+                  <option value="2">2 – Non-anginal Pain</option><option value="3">3 – Asymptomatic</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Vital Signs -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header section-header"><i class="fa-solid fa-heart-pulse me-2"></i>Vital Signs &amp; Lab Results</div>
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="trestbps">Resting Blood Pressure</label>
+                <div class="input-group"><input type="number" class="form-control" id="trestbps" name="trestbps" min="80" max="220" placeholder="e.g. 130" required/><span class="input-group-text">mm Hg</span></div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="chol">Serum Cholesterol</label>
+                <div class="input-group"><input type="number" class="form-control" id="chol" name="chol" min="100" max="600" placeholder="e.g. 240" required/><span class="input-group-text">mg/dl</span></div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="thalach">Maximum Heart Rate</label>
+                <div class="input-group"><input type="number" class="form-control" id="thalach" name="thalach" min="60" max="220" placeholder="e.g. 150" required/><span class="input-group-text">bpm</span></div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="fbs">Fasting Blood Sugar</label>
+                <select class="form-select" id="fbs" name="fbs" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="0">No (≤120 mg/dl)</option><option value="1">Yes (&gt;120 mg/dl)</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="restecg">Resting ECG Results</label>
+                <select class="form-select" id="restecg" name="restecg" required>
+                  <option value="" disabled selected>Select result</option>
+                  <option value="0">0 – Normal</option><option value="1">1 – ST-T Wave Abnormality</option><option value="2">2 – LV Hypertrophy</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="exang">Exercise Induced Angina</label>
+                <select class="form-select" id="exang" name="exang" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="0">No</option><option value="1">Yes</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ST Segment -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header section-header"><i class="fa-solid fa-wave-square me-2"></i>ST Segment &amp; Cardiac Imaging</div>
+          <div class="card-body p-4">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="oldpeak">ST Depression (Oldpeak)</label>
+                <input type="number" class="form-control" id="oldpeak" name="oldpeak" min="0" max="10" step="0.1" placeholder="e.g. 1.5" required/>
+                <div class="form-text">Range: 0.0 – 6.2</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="slope">Slope of Peak Exercise ST</label>
+                <select class="form-select" id="slope" name="slope" required>
+                  <option value="" disabled selected>Select slope</option>
+                  <option value="0">0 – Upsloping</option><option value="1">1 – Flat</option><option value="2">2 – Downsloping</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="ca">Major Vessels (CA)</label>
+                <select class="form-select" id="ca" name="ca" required>
+                  <option value="" disabled selected>Select count</option>
+                  <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label fw-semibold" for="thal">Thalassemia (Thal)</label>
+                <select class="form-select" id="thal" name="thal" required>
+                  <option value="" disabled selected>Select type</option>
+                  <option value="0">0 – Normal</option><option value="1">1 – Fixed Defect</option><option value="2">2 – Reversible Defect</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex gap-3 mb-5">
+          <button type="submit" class="btn btn-primary-custom btn-lg px-5"><i class="fa-solid fa-magnifying-glass me-2"></i>Generate Prediction</button>
+          <button type="reset" class="btn btn-outline-secondary btn-lg px-4"><i class="fa-solid fa-rotate-left me-2"></i>Clear Form</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script>document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el=>new bootstrap.Tooltip(el));</script>{% endblock %}

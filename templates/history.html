@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Prediction History – HeartPredict{% endblock %}
+{% block content %}
+<div class="container">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold mb-1"><i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i>Prediction History</h3>
+      <p class="text-muted mb-0">All predictions made with your account.</p>
+    </div>
+    <a href="{{ url_for('predict') }}" class="btn btn-primary-custom">
+      <i class="fa-solid fa-plus me-2"></i>New Prediction
+    </a>
+  </div>
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      {% if predictions.items %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-3">#</th>
+              <th>Patient</th>
+              <th>Algorithm</th>
+              <th>Result</th>
+              <th>Confidence</th>
+              <th>Date &amp; Time</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in predictions.items %}
+            <tr>
+              <td class="ps-3 text-muted small">{{ p.id }}</td>
+              <td class="fw-semibold">{{ p.patient_name }}</td>
+              <td>
+                <span class="badge bg-secondary-subtle text-dark small">{{ p.algorithm_used }}</span>
+              </td>
+              <td>
+                <span class="badge bg-{{ p.result_class }}-subtle text-{{ p.result_class }}">
+                  <i class="fa-solid {% if p.prediction_result == 1 %}fa-heart-crack{% else %}fa-heart{% endif %} me-1"></i>
+                  {{ p.result_label }}
+                </span>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="progress flex-grow-1" style="height:6px;min-width:50px">
+                    <div class="progress-bar bg-{{ p.result_class }}"
+                         style="width:{{ (p.confidence_score * 100)|round|int }}%"></div>
+                  </div>
+                  <small class="text-muted">{{ (p.confidence_score * 100)|round(1) }}%</small>
+                </div>
+              </td>
+              <td class="text-muted small">{{ p.created_at.strftime('%d %b %Y, %H:%M') }}</td>
+              <td class="text-center">
+                <a href="{{ url_for('result', prediction_id=p.id) }}"
+                   class="btn btn-sm btn-outline-primary me-1" title="View Details">
+                  <i class="fa-solid fa-eye"></i>
+                </a>
+                <form method="POST"
+                      action="{{ url_for('delete_prediction', pid=p.id) }}"
+                      class="d-inline"
+                      onsubmit="return confirm('Delete this prediction record?')">
+                  <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      {% if predictions.pages > 1 %}
+      <div class="d-flex justify-content-center py-3">
+        <nav>
+          <ul class="pagination pagination-sm mb-0">
+            <li class="page-item {% if not predictions.has_prev %}disabled{% endif %}">
+              <a class="page-link" href="{{ url_for('history', page=predictions.prev_num) }}">
+                <i class="fa-solid fa-chevron-left"></i>
+              </a>
+            </li>
+            {% for page_num in predictions.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+              {% if page_num %}
+              <li class="page-item {% if page_num == predictions.page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('history', page=page_num) }}">{{ page_num }}</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled"><span class="page-link">…</span></li>
+              {% endif %}
+            {% endfor %}
+            <li class="page-item {% if not predictions.has_next %}disabled{% endif %}">
+              <a class="page-link" href="{{ url_for('history', page=predictions.next_num) }}">
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      {% endif %}
+
+      {% else %}
+      <div class="text-center py-5">
+        <i class="fa-solid fa-folder-open fa-3x text-muted mb-3"></i>
+        <p class="text-muted mb-3">No prediction records found.</p>
+        <a href="{{ url_for('predict') }}" class="btn btn-primary-custom">
+          <i class="fa-solid fa-plus me-2"></i>Make Your First Prediction
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

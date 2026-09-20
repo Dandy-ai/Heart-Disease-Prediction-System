@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Manage Users – Admin{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold mb-1"><i class="fa-solid fa-users me-2 text-primary"></i>Manage User Accounts</h3>
+      <p class="text-muted mb-0">{{ users|length }} registered account(s) in the system.</p>
+    </div>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-chevron-left me-1"></i>Dashboard</a>
+  </div>
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-3">#</th><th>Username</th><th>Email</th><th>Role</th>
+              <th>Predictions</th><th>Joined</th><th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for u in users %}
+            <tr>
+              <td class="ps-3 text-muted small">{{ u.id }}</td>
+              <td class="fw-semibold">{{ u.username }}</td>
+              <td class="text-muted small">{{ u.email }}</td>
+              <td>
+                {% if u.is_admin %}
+                <span class="badge bg-warning text-dark"><i class="fa-solid fa-shield-halved me-1"></i>Admin</span>
+                {% else %}
+                <span class="badge bg-secondary-subtle text-dark">User</span>
+                {% endif %}
+              </td>
+              <td><span class="badge bg-primary-subtle text-primary">{{ u.pred_count }}</span></td>
+              <td class="text-muted small">{{ u.created_at.strftime('%d %b %Y') }}</td>
+              <td class="text-center">
+                {% if not u.is_admin and u.id != current_user.id %}
+                <form method="POST" action="{{ url_for('admin_delete_user', uid=u.id) }}"
+                      class="d-inline" onsubmit="return confirm('Delete user {{ u.username }}? All their predictions will also be deleted.')">
+                  <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete User">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+                {% else %}
+                <span class="text-muted small">—</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

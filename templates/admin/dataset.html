@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Dataset Management – Admin{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold mb-1"><i class="fa-solid fa-database me-2 text-success"></i>Dataset Management</h3>
+      <p class="text-muted mb-0">Information about the training dataset used to build the prediction model.</p>
+    </div>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-chevron-left me-1"></i>Dashboard</a>
+  </div>
+
+  <!-- Dataset Status -->
+  <div class="alert {% if dataset.exists %}alert-success{% else %}alert-danger{% endif %} border-0 shadow-sm mb-4">
+    <i class="fa-solid {% if dataset.exists %}fa-circle-check{% else %}fa-circle-xmark{% endif %} me-2"></i>
+    <strong>Dataset File:</strong> {{ dataset.file }}
+    {% if dataset.exists %} — <strong>Found and ready.</strong>
+    {% else %} — <strong>Not found.</strong> Place heart.csv in the data/ folder.{% endif %}
+  </div>
+
+  <!-- Dataset Info Cards -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm text-center p-3">
+        <i class="fa-solid fa-file-csv fa-2x text-success mb-2"></i>
+        <h4 class="fw-bold mb-0">{{ dataset.records }}</h4>
+        <p class="text-muted small mb-0">Total Records</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm text-center p-3">
+        <i class="fa-solid fa-table-columns fa-2x text-primary mb-2"></i>
+        <h4 class="fw-bold mb-0">{{ dataset.features }}</h4>
+        <p class="text-muted small mb-0">Clinical Features</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm text-center p-3">
+        <i class="fa-solid fa-heart fa-2x text-success mb-2"></i>
+        <h4 class="fw-bold mb-0">{{ dataset.no_disease }}</h4>
+        <p class="text-muted small mb-0">No Disease (Class 0)</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm text-center p-3">
+        <i class="fa-solid fa-heart-crack fa-2x text-danger mb-2"></i>
+        <h4 class="fw-bold mb-0">{{ dataset.disease }}</h4>
+        <p class="text-muted small mb-0">Disease (Class 1)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dataset Details -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3">
+      <h6 class="fw-bold mb-0"><i class="fa-solid fa-circle-info me-2 text-muted"></i>Dataset Details</h6>
+    </div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <table class="table table-sm">
+            <tr><th class="text-muted" style="width:45%">Dataset Name</th><td>{{ dataset.name }}</td></tr>
+            <tr><th class="text-muted">Source</th><td>{{ dataset.source }}</td></tr>
+            <tr><th class="text-muted">Total Records</th><td>{{ dataset.records }}</td></tr>
+            <tr><th class="text-muted">Clinical Features</th><td>{{ dataset.features }} predictor variables</td></tr>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <table class="table table-sm">
+            <tr><th class="text-muted" style="width:45%">Class Distribution</th><td>No Disease: {{ dataset.no_disease }} | Disease: {{ dataset.disease }}</td></tr>
+            <tr><th class="text-muted">Training Split</th><td>{{ dataset.split_train }} records (70%)</td></tr>
+            <tr><th class="text-muted">Test Split</th><td>{{ dataset.split_test }} records (30%)</td></tr>
+            <tr><th class="text-muted">File Location</th><td><code>{{ dataset.file }}</code></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-warning border-0 shadow-sm">
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>
+    <strong>Note:</strong> To retrain the models with a new dataset, replace <code>data/heart.csv</code>
+    with the updated file and run <code>python train_models.py</code> from the project folder.
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}System Performance – Admin{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold mb-1"><i class="fa-solid fa-chart-bar me-2 text-warning"></i>System Performance</h3>
+      <p class="text-muted mb-0">Machine learning model evaluation results on the UCI Cleveland Heart Disease dataset.</p>
+    </div>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-chevron-left me-1"></i>Dashboard</a>
+  </div>
+
+  <!-- Best Model Banner -->
+  <div class="card border-0 shadow-sm p-3 mb-4" style="background:linear-gradient(135deg,#1B2A4A,#2563EB);color:#fff">
+    <div class="d-flex align-items-center gap-3">
+      <i class="fa-solid fa-trophy fa-2x text-warning"></i>
+      <div>
+        <p class="fw-bold mb-0 fs-5">Active Model: {{ best_model }}</p>
+        <p class="small mb-0 opacity-75">Selected as the best-performing algorithm after comparing six trained models on the test dataset.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Table -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3">
+      <h6 class="fw-bold mb-0"><i class="fa-solid fa-table me-2 text-muted"></i>Algorithm Comparison Table</h6>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead style="background:#1B2A4A;color:#fff">
+            <tr>
+              <th class="ps-3" style="color:#fff">Algorithm</th>
+              <th style="color:#fff">Accuracy</th><th style="color:#fff">Precision</th>
+              <th style="color:#fff">Recall</th><th style="color:#fff">F1-Score</th>
+              <th style="color:#fff">Specificity</th><th style="color:#fff">CV Mean</th>
+              <th style="color:#fff">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in results %}
+            <tr {% if r.best %}style="background:#E8F5E9"{% endif %}>
+              <td class="ps-3 fw-semibold">{{ r.name }}</td>
+              <td><strong>{{ r.accuracy }}%</strong></td>
+              <td>{{ r.precision }}%</td><td>{{ r.recall }}%</td>
+              <td>{{ r.f1 }}%</td><td>{{ r.specificity }}%</td><td>{{ r.cv }}%</td>
+              <td>
+                {% if r.best %}
+                <span class="badge bg-success"><i class="fa-solid fa-check me-1"></i>Deployed</span>
+                {% else %}
+                <span class="badge bg-secondary">Trained</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Accuracy Chart -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3">
+      <h6 class="fw-bold mb-0"><i class="fa-solid fa-chart-bar me-2 text-muted"></i>Accuracy Comparison Chart</h6>
+    </div>
+    <div class="card-body text-center">
+      <img src="{{ url_for('static', filename='img/accuracy_comparison.png') }}" class="img-fluid rounded" alt="Accuracy Comparison"
+           onerror="this.parentElement.innerHTML='<p class=text-muted>Run train_models.py to generate chart.</p>'"/>
+    </div>
+  </div>
+
+  <!-- Confusion Matrices -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0 py-3">
+      <h6 class="fw-bold mb-0"><i class="fa-solid fa-grid-2 me-2 text-muted"></i>Confusion Matrices – All 6 Algorithms</h6>
+    </div>
+    <div class="card-body text-center">
+      <img src="{{ url_for('static', filename='img/confusion_matrices.png') }}" class="img-fluid rounded" alt="Confusion Matrices"
+           onerror="this.parentElement.innerHTML='<p class=text-muted>Run train_models.py to generate matrices.</p>'"/>
+    </div>
+  </div>
+</div>
+{% endblock %}

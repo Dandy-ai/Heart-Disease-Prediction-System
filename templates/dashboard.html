@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – HeartPredict{% endblock %}
+{% block content %}
+<div class="container">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold mb-1">
+        <i class="fa-solid fa-gauge me-2 text-primary"></i>Dashboard
+      </h3>
+      <p class="text-muted mb-0">Welcome back, <strong>{{ current_user.username }}</strong></p>
+    </div>
+    <a href="{{ url_for('predict') }}" class="btn btn-primary-custom">
+      <i class="fa-solid fa-plus me-2"></i>New Prediction
+    </a>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm stat-card text-center p-3">
+        <i class="fa-solid fa-clipboard-list fa-2x text-primary mb-2"></i>
+        <h2 class="fw-bold mb-0">{{ total }}</h2>
+        <p class="text-muted small mb-0">Total Predictions</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm stat-card text-center p-3">
+        <i class="fa-solid fa-heart-crack fa-2x text-danger mb-2"></i>
+        <h2 class="fw-bold mb-0 text-danger">{{ positive }}</h2>
+        <p class="text-muted small mb-0">Disease Detected</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm stat-card text-center p-3">
+        <i class="fa-solid fa-heart fa-2x text-success mb-2"></i>
+        <h2 class="fw-bold mb-0 text-success">{{ negative }}</h2>
+        <p class="text-muted small mb-0">No Disease</p>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="card border-0 shadow-sm stat-card text-center p-3">
+        <i class="fa-solid fa-robot fa-2x text-info mb-2"></i>
+        <h2 class="fw-bold mb-0 small pt-2">{{ most_used }}</h2>
+        <p class="text-muted small mb-0">Most Used Algorithm</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Predictions -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+      <h6 class="fw-bold mb-0"><i class="fa-solid fa-clock-rotate-left me-2 text-muted"></i>Recent Predictions</h6>
+      {% if total > 0 %}
+      <a href="{{ url_for('history') }}" class="btn btn-sm btn-outline-secondary">View All</a>
+      {% endif %}
+    </div>
+    <div class="card-body p-0">
+      {% if predictions %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th class="ps-3">Patient</th>
+              <th>Algorithm</th>
+              <th>Result</th>
+              <th>Confidence</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in predictions %}
+            <tr>
+              <td class="ps-3 fw-semibold">{{ p.patient_name }}</td>
+              <td><span class="badge bg-secondary-subtle text-dark">{{ p.algorithm_used }}</span></td>
+              <td>
+                <span class="badge bg-{{ p.result_class }}-subtle text-{{ p.result_class }}">
+                  <i class="fa-solid {% if p.prediction_result == 1 %}fa-heart-crack{% else %}fa-heart{% endif %} me-1"></i>
+                  {{ p.result_label }}
+                </span>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div class="progress flex-grow-1" style="height:6px;min-width:60px">
+                    <div class="progress-bar bg-{{ p.result_class }}"
+                         style="width:{{ (p.confidence_score * 100)|round|int }}%"></div>
+                  </div>
+                  <small class="text-muted">{{ (p.confidence_score * 100)|round(1) }}%</small>
+                </div>
+              </td>
+              <td class="text-muted small">{{ p.created_at.strftime('%d %b %Y') }}</td>
+              <td>
+                <a href="{{ url_for('result', prediction_id=p.id) }}"
+                   class="btn btn-sm btn-outline-primary">
+                  <i class="fa-solid fa-eye"></i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="text-center py-5">
+        <i class="fa-solid fa-stethoscope fa-3x text-muted mb-3"></i>
+        <p class="text-muted mb-3">No predictions yet. Make your first one now!</p>
+        <a href="{{ url_for('predict') }}" class="btn btn-primary-custom">
+          <i class="fa-solid fa-plus me-2"></i>New Prediction
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Accuracy Chart -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0 py-3">
+      <h6 class="fw-bold mb-0"><i class="fa-solid fa-chart-bar me-2 text-muted"></i>Algorithm Accuracy Comparison</h6>
+    </div>
+    <div class="card-body text-center">
+      <img src="{{ url_for('static', filename='img/accuracy_comparison.png') }}"
+           class="img-fluid rounded" alt="Algorithm Accuracy Comparison"
+           onerror="this.parentElement.innerHTML='<p class=text-muted>Run train_models.py to generate the accuracy chart.</p>'"/>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

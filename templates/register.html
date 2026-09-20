@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Register – HeartPredict{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card border-0 shadow-sm mt-3">
+        <div class="card-body p-4 p-md-5">
+          <div class="text-center mb-4">
+            <i class="fa-solid fa-user-plus fa-3x text-primary mb-3"></i>
+            <h4 class="fw-bold">Create Account</h4>
+            <p class="text-muted small">Join HeartPredict to start making predictions</p>
+          </div>
+          <form method="POST" action="{{ url_for('register') }}" novalidate>
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="username">
+                <i class="fa-solid fa-user me-1 text-muted"></i>Username
+              </label>
+              <input type="text" class="form-control" id="username" name="username"
+                     placeholder="Choose a username (min 3 chars)"
+                     value="{{ username or '' }}" required autofocus/>
+              <div class="form-text">At least 3 characters. No spaces.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="email">
+                <i class="fa-solid fa-envelope me-1 text-muted"></i>Email Address
+              </label>
+              <input type="email" class="form-control" id="email" name="email"
+                     placeholder="Enter your email address"
+                     value="{{ email or '' }}" required/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="password">
+                <i class="fa-solid fa-lock me-1 text-muted"></i>Password
+              </label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="password"
+                       name="password" placeholder="Create a password (min 6 chars)" required/>
+                <button class="btn btn-outline-secondary" type="button"
+                        onclick="togglePassword('password', this)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-semibold" for="confirm_password">
+                <i class="fa-solid fa-lock me-1 text-muted"></i>Confirm Password
+              </label>
+              <input type="password" class="form-control" id="confirm_password"
+                     name="confirm_password" placeholder="Repeat your password" required/>
+            </div>
+            <button type="submit" class="btn btn-primary-custom btn-lg w-100">
+              <i class="fa-solid fa-user-plus me-2"></i>Create Account
+            </button>
+          </form>
+          <hr class="my-4"/>
+          <p class="text-center text-muted small mb-0">
+            Already have an account?
+            <a href="{{ url_for('login') }}" class="fw-semibold text-decoration-none">Sign in here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function togglePassword(inputId, btn) {
+  const input = typeof inputId === 'string' ? document.getElementById(inputId) : inputId;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+  } else {
+    input.type = 'password';
+    btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
+  }
+}
+</script>
+{% endblock %}

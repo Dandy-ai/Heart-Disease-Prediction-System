@@ -1,0 +1,159 @@
+/* =============================================================================
+   Heart Disease Prediction System – Custom Styles
+   ============================================================================= */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F1F5F9;
+  color: #1E293B;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }
+
+:root {
+  --navy:   #1B2A4A;
+  --blue:   #2563EB;
+  --green:  #059669;
+  --red:    #DC2626;
+  --border: #E2E8F0;
+}
+
+/* Navbar */
+.bg-primary-custom { background-color: var(--navy) !important; }
+.navbar-brand { font-size: 1.25rem; letter-spacing: -0.01em; }
+.navbar .nav-link {
+  font-size: 0.875rem; font-weight: 500;
+  color: rgba(255,255,255,0.82) !important;
+  border-radius: 6px; padding: 6px 10px !important;
+  transition: background 0.15s, color 0.15s;
+}
+.navbar .nav-link:hover, .navbar .nav-link.active {
+  color: #fff !important; background-color: rgba(255,255,255,0.12);
+}
+
+/* Buttons */
+.btn-primary-custom {
+  background-color: var(--blue); border-color: var(--blue); color: #fff;
+  font-weight: 600; border-radius: 8px; transition: background 0.15s, transform 0.1s;
+}
+.btn-primary-custom:hover {
+  background-color: #1D4ED8; border-color: #1D4ED8; color: #fff; transform: translateY(-1px);
+}
+.btn-accent { background-color: #10B981; border-color: #10B981; color: #fff; font-weight: 600; border-radius: 8px; }
+.btn-accent:hover { background-color: #059669; color: #fff; }
+
+/* Cards */
+.card { border-radius: 12px !important; }
+.card-header.section-header {
+  background-color: var(--navy); color: #fff; font-weight: 600; font-size: 0.9rem;
+  border-radius: 12px 12px 0 0 !important; padding: 12px 20px; border: none;
+}
+
+/* Hero */
+.hero-section {
+  background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+  border-radius: 16px; padding: 60px 40px !important; border: 1px solid var(--border);
+}
+
+/* Feature Cards */
+.feature-card { border-radius: 12px !important; transition: transform 0.2s, box-shadow 0.2s; }
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important; }
+.feature-icon {
+  width: 60px; height: 60px; border-radius: 50%; background: #F1F5F9;
+  display: flex; align-items: center; justify-content: center; margin: 0 auto;
+}
+
+/* Steps */
+.step-circle {
+  width: 44px; height: 44px; border-radius: 50%; background-color: var(--blue);
+  color: #fff; font-weight: 700; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Stat Cards */
+.stat-card { border-radius: 12px !important; transition: transform 0.15s; }
+.stat-card:hover { transform: translateY(-2px); }
+
+/* Result Banners */
+.result-banner-danger {
+  background: linear-gradient(135deg, #FEF2F2 0%, #FFF1F1 100%);
+  border: 2px solid #FECACA !important; border-radius: 16px !important;
+}
+.result-banner-success {
+  background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%);
+  border: 2px solid #BBF7D0 !important; border-radius: 16px !important;
+}
+
+/* Feature Pills */
+.feature-pill {
+  background: #F8FAFC; border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 12px; font-size: 0.875rem;
+}
+
+/* Progress */
+.progress { border-radius: 10px; background-color: #E2E8F0; }
+.progress-bar { border-radius: 10px; }
+
+/* Tables */
+.table th {
+  font-size: 0.78rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.04em; color: #64748B; border-bottom: 2px solid var(--border) !important;
+}
+.table td { font-size: 0.875rem; }
+.table-hover tbody tr:hover { background-color: #F8FAFC; }
+
+/* Badges */
+.bg-success-subtle  { background-color: #D1FAE5 !important; }
+.bg-danger-subtle   { background-color: #FEE2E2 !important; }
+.bg-secondary-subtle { background-color: #F1F5F9 !important; }
+.text-success { color: var(--green) !important; }
+.text-danger  { color: var(--red)   !important; }
+
+/* Forms */
+.form-control, .form-select {
+  border-color: var(--border); border-radius: 8px; font-size: 0.9rem;
+  padding: 9px 12px; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
+.form-label  { font-size: 0.875rem; margin-bottom: 5px; }
+.form-text   { font-size: 0.78rem;  color: #94A3B8; }
+.input-group-text { background: #F8FAFC; border-color: var(--border); font-size: 0.85rem; color: #64748B; }
+
+/* Alerts */
+.alert { border-radius: 10px; font-size: 0.9rem; }
+
+/* Footer */
+.footer-custom { background-color: #fff; border-top: 1px solid var(--border); margin-top: 40px; }
+
+/* Pagination */
+.pagination .page-link {
+  border-radius: 6px !important; margin: 0 2px; font-size: 0.85rem;
+  color: var(--blue); border-color: var(--border);
+}
+.pagination .page-item.active .page-link { background-color: var(--blue); border-color: var(--blue); }
+
+/* Responsive */
+@media (max-width: 576px) {
+  .hero-section { padding: 36px 20px !important; }
+  h1.display-5 { font-size: 1.8rem; }
+  .stat-card h2 { font-size: 1.5rem; }
+}
+
+/* ── Admin Styles ──────────────────────────────────────────────────────────── */
+.admin-action-card {
+  border-radius: 12px !important;
+  transition: transform 0.15s, box-shadow 0.15s;
+  color: #1E293B;
+}
+.admin-action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+  color: #1E293B;
+}
+.bg-primary-subtle  { background-color: #DBEAFE !important; }
+.text-primary       { color: var(--blue) !important; }
+.bg-primary-custom  { background-color: var(--navy) !important; }
+.navbar .badge      { font-size: 0.6rem; padding: 3px 6px; }
