@@ -3,7 +3,7 @@
 > A machine learning-powered web application that predicts the likelihood 
 > of heart disease from patient clinical data — fast, accessible, and non-invasive.
 
-![Python](https://img.shields.io/badge/Python-3.13.5-blue)
+![Python](https://img.shields.io/badge/Python-3.14.6-blue)
 ![Flask](https://img.shields.io/badge/Flask-3.0.3-lightgrey)
 ![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.6.1-orange)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-green)
@@ -11,7 +11,7 @@
 
 ---
 
-## 📋 Table of Contents
+## 📋Table of Contents
 
 - [Project Overview](#-project-overview)
 - [Screenshots](#-screenshots)
@@ -28,10 +28,10 @@
 
 ---
 
-## 📌 Project Overview
+## 📌Project Overview
 
 The **Heart Disease Web-based Prediction System** is a full-stack web application 
-developed as part of a Computer Science Final Year Project. It uses supervised 
+developed as part of my Computer Science Final Year Project. It uses supervised 
 machine learning to analyse 13 patient clinical features and predict the 
 likelihood of heart disease, delivering results with a confidence score 
 through a user-friendly browser interface.
@@ -47,11 +47,11 @@ The system supports two user roles:
 
 ---
 
-## 📸 Screenshots
+## 📸Screenshots
 
 | Home Page | Prediction Form |
 |-----------|----------------|
-| ![Home](screenshots/home.png) | ![Form](screenshots/prediction_form.png) |
+| ![Home](screenshots/home_page.png) | ![Form](screenshots/prediction_form.png) |
 
 | Result — Disease Detected | Result — No Disease |
 |--------------------------|---------------------|
@@ -59,7 +59,7 @@ The system supports two user roles:
 
 | User Dashboard | Prediction History |
 |---------------|-------------------|
-| ![Dashboard](screenshots/dashboard.png) | ![History](screenshots/history.png) |
+| ![Dashboard](screenshots/dashboard.png) | ![History](screenshots/prediction_history.png) |
 
 | Admin Dashboard | System Performance |
 |----------------|-------------------|
@@ -67,7 +67,7 @@ The system supports two user roles:
 
 ---
 
-## ✨ Features
+## ✨Features
 
 ### User / Patient Side
 - 🔐 Secure registration and login with password hashing
@@ -86,7 +86,7 @@ The system supports two user roles:
 
 ---
 
-## 🤖 Machine Learning Results
+## 🤖Machine Learning Results
 
 Six supervised learning algorithms were trained on the UCI Cleveland 
 Heart Disease Dataset (297 records, 70/30 train-test split):
@@ -109,14 +109,14 @@ overall accuracy, precision, F1-score, and lowest false negative count.
 
 | Layer | Technology |
 |-------|-----------|
-| Language | Python 3.13.5 |
-| Web Framework | Flask 3.0.3 |
-| Machine Learning | Scikit-Learn 1.6.1 |
-| Database | SQLite (via Flask-SQLAlchemy) |
-| Authentication | Flask-Login + Werkzeug |
+| Language | Python 3.14.6 |
+| Web Framework | Flask 3.1.3 |
+| Machine Learning | Scikit-Learn 1.9.0 |
+| Database | SQLite (via Flask-SQLAlchemy 3.1.1) |
+| Authentication | Flask-Login 0.6.3 + Werkzeug 3.1.8 |
 | Frontend | HTML5, CSS3, Bootstrap 5.3, Font Awesome 6 |
-| Data Processing | Pandas, NumPy |
-| Visualisation | Matplotlib, Seaborn |
+| Data Processing | Pandas 3.0.3, NumPy 2.5.1 |
+| Visualisation | Matplotlib 3.11.1, Seaborn 0.13.2 |
 | IDE | Visual Studio Code |
 | OS | Windows 11 |
 
