@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project-specific
+instance/
+models/
+data/
+static/img/accuracy_comparison.png
+static/img/confusion_matrices.png
