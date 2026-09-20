@@ -1,7 +1,4 @@
-# Heart-Disease-Prediction-System
-A machine learning-powered web application for heart disease risk prediction using Flask and Scikit-Learn
-
-# 🫀 Heart Disease Web-based Prediction System
+# 🫀Heart Disease Web-based Prediction System
 
 > A machine learning-powered web application that predicts the likelihood 
 > of heart disease from patient clinical data — fast, accessible, and non-invasive.
