@@ -145,7 +145,7 @@ The system follows a **client-server architecture** with two parallel methodolog
 
 ---
 
-## ⚙️Installation & Setup
+## ⚙️ Installation & Setup
 
 ### Prerequisites
 - Python 3.10 or higher
@@ -216,7 +216,7 @@ Open your browser at: **http://127.0.0.1:5000**
 
 ---
 
-## 📁Project Structure
+## 📁 Project Structure
 
 > heart-disease-prediction-system/
 > │
