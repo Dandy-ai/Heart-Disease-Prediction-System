@@ -4,8 +4,8 @@
 > of heart disease from patient clinical data — fast, accessible, and non-invasive.
 
 ![Python](https://img.shields.io/badge/Python-3.14.6-blue)
-![Flask](https://img.shields.io/badge/Flask-3.0.3-lightgrey)
-![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.6.1-orange)
+![Flask](https://img.shields.io/badge/Flask-3.1.3-lightgrey)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.9.0-orange)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)
 
