@@ -128,20 +128,22 @@ The system follows a **client-server architecture** with two parallel methodolog
 - **OOADM (Object-Oriented Analysis & Design Methodology)** — for the web application
 - **CRISP-DM** — for the machine learning pipeline
 
-> Client (Browser)
-> │ HTTP Request
-> ▼
-> Flask Application (app.py)
-> │
-> ├── Authentication Module
-> ├── Prediction Module ──── StandardScaler ──── Logistic Regression Model
-> ├── History Module
-> ├── Dashboard Module
-> └── Admin Modules (Users, Predictions, Performance, Dataset)
-> │
-> ▼
-> SQLite Database
-> (users + predictions tables)
+```text
+Client (Browser)
+│ HTTP Request
+▼
+Flask Application (app.py)
+│
+├── Authentication Module
+├── Prediction Module ──── StandardScaler ──── Logistic Regression Model
+├── History Module
+├── Dashboard Module
+└── Admin Modules (Users, Predictions, Performance, Dataset)
+│
+▼
+SQLite Database
+(users + predictions tables)
+```
 
 ---
 
@@ -218,6 +220,7 @@ Open your browser at: **http://127.0.0.1:5000**
 
 ## 📁 Project Structure
 
+```text
 > heart-disease-prediction-system/
 > │
 > ├── app.py # Main Flask application
@@ -249,6 +252,7 @@ Open your browser at: **http://127.0.0.1:5000**
 > ├── models/ # Saved models (generated after training)
 > ├── instance/ # SQLite database (generated at runtime)
 > └── screenshots/ # System screenshots for README
+```
 
 ---
 
