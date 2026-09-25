@@ -221,37 +221,37 @@ Open your browser at: **http://127.0.0.1:5000**
 ## 📁 Project Structure
 
 ```text
-> heart-disease-prediction-system/
-> │
-> ├── app.py # Main Flask application
-> ├── train_models.py # ML training and evaluation script
-> ├── create_admin.py # Admin account creation utility
-> ├── requirements.txt # Python dependencies
-> │
-> ├── static/
-> │ ├── css/style.css # Custom stylesheet
-> │ └── img/ # Generated charts (after training)
-> │
-> ├── templates/
-> │ ├── base.html # Master template with role-aware navbar
-> │ ├── home.html # Landing page
-> │ ├── login.html # User login
-> │ ├── register.html # User registration
-> │ ├── dashboard.html # User dashboard
-> │ ├── predict.html # Prediction form
-> │ ├── result.html # Prediction result
-> │ ├── history.html # Prediction history
-> │ └── admin/
-> │ ├── dashboard.html # Admin dashboard
-> │ ├── users.html # User management
-> │ ├── predictions.html # All predictions view
-> │ ├── performance.html # Model performance
-> │ └── dataset.html # Dataset management
-> │
-> ├── data/ # Place heart.csv here (committed)
-> ├── models/ # Saved models (generated after training)
-> ├── instance/ # SQLite database (generated at runtime)
-> └── screenshots/ # System screenshots for README
+heart-disease-prediction-system/
+│
+├── app.py # Main Flask application
+├── train_models.py # ML training and evaluation script
+├── create_admin.py # Admin account creation utility
+├── requirements.txt # Python dependencies
+│
+├── static/
+│ ├── css/style.css # Custom stylesheet
+│ └── img/ # Generated charts (after training)
+│
+├── templates/
+│ ├── base.html # Master template with role-aware navbar
+│ ├── home.html # Landing page
+│ ├── login.html # User login
+│ ├── register.html # User registration
+│ ├── dashboard.html # User dashboard
+│ ├── predict.html # Prediction form
+│ ├── result.html # Prediction result
+│ ├── history.html # Prediction history
+│ └── admin/
+│ ├── dashboard.html # Admin dashboard
+│ ├── users.html # User management
+│ ├── predictions.html # All predictions view
+│ ├── performance.html # Model performance
+│ └── dataset.html # Dataset management
+│
+├── data/ # Place heart.csv here (committed)
+├── models/ # Saved models (generated after training)
+├── instance/ # SQLite database (generated at runtime)
+└── screenshots/ # System screenshots for README
 ```
 
 ---
